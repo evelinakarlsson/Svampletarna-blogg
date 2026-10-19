@@ -1,0 +1,31 @@
+.hero {
+    --hero-bild: url("../img/alla-svampar-bakgrund.jpg");
+}
+
+.svamp-lista>ul {
+    gap: 1.5em;
+}
+
+.svamp-lista .btn-find {
+    margin-top: auto;
+    padding: 0.7em;
+    background-color: #2f5d34;
+    border-color: #2f5d34;
+    color: #fff;
+}
+
+.svamp-lista .btn-find:hover {
+    background-color: #244728;
+}
+
+@media (min-width: 600px) {
+    .svamp-lista>ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .svamp-lista>ul {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

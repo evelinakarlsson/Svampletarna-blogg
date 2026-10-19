@@ -1,0 +1,62 @@
+.hero {
+    --hero-bild: url("../img/mina-fynd-bakgrund.jpg");
+}
+
+/* Rutan med antal fynd och "Rensa alla fynd" */
+main>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 8px;
+    background-color: #c9daae;
+    font-weight: bold;
+}
+
+main button {
+    color: #fff;
+    border: none;
+    background-color: #a52222;
+}
+
+/* Bild till vänster, text i mitten, knapp till höger */
+article {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    align-items: center;
+    column-gap: 1em;
+    row-gap: 0.2em;
+    padding: 0.8em;
+}
+
+article> :not(img) {
+    margin-inline: 0;
+    grid-column: 2;
+}
+
+article>img {
+    grid-row: 1 / 5;
+    aspect-ratio: 1;
+    border-radius: 6px;
+}
+
+article>button {
+    grid-column: 3;
+    grid-row: 1 / 5;
+}
+
+@media (max-width: 600px) {
+    article {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    article>button {
+        width: 100%;
+    }
+
+    article>img {
+        width: 100%;
+    }
+}

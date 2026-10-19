@@ -1,0 +1,74 @@
+.hero {
+    --hero-bild: url("../img/om-svampar-bakgrund.jpg");
+}
+
+main>p {
+    color: grey;
+}
+
+.jamforelse {
+    margin-top: 16px;
+    border-radius: 8px;
+    padding: 16px;
+    gap: 10px;
+    background-color: white;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+}
+
+.jamforelse h3 {
+    grid-column: 1 / 3;
+}
+
+.jamforelse-innehall {
+    grid-column: 1 / 4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.jamforelse-bilder {
+    grid-column: 1 / 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.jamforelse-bilder figure {
+    width: 100%;
+}
+
+.risk {
+    font-weight: bold;
+    font-style: normal;
+    border-radius: 8px;
+    padding: 8px;
+    grid-column: 3 / 4;
+    text-align: center;
+}
+
+.jamforelse-bilder img {
+    width: 100%;
+    max-width: 250px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    margin: 0 auto 8px;
+}
+
+@media (max-width: 600px) {
+    .jamforelse {
+        display: flex;
+    }
+
+    .jamforelse-innehall {
+        gap: 5px;
+        display: flex;
+        flex-direction: column;
+    }
+}

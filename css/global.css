@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+
+h1 {
+    font-family: "Concert One", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f6f3ea;
+    color: #2b2b2b;
+    max-width: 1200px;
+    box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.483);
+    margin: 0 auto;
+}
+
+html {
+    background-color: #294522;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 2em;
+    padding: 0 2em;
+    background-color: #faf8f0;
+}
+
+main {
+    flex-grow: 1;
+    /* Gör så att huvudinnehållet fyller ut allt ledigt utrymme mellan header och footer */
+    padding: 2em 1em;
+}
+
+button {
+    font-size: 0.85em;
+    padding: 0.4em 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 1em;
+}
+
+nav>a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding-block: 1em;
+}
+
+nav>a[aria-current="page"] {
+    color: #2f5d34;
+    font-weight: bold;
+    border-bottom: 2px solid #2f5d34;
+}
+
+nav>a>img {
+    max-height: 50px;
+}
+
+nav>a:nth-child(1) {
+    margin-right: auto;
+    /* Skjuter all efterföljande nav-innehåll åt höger genom att ta upp all ledig marginal */
+}
+
+
+section>ul {
+    display: grid;
+    /* En svamp per rad som standard, index.css lägger till fler kolumner på större skärmar */
+    grid-template-columns: 1fr;
+    gap: 10px;
+    list-style: none;
+}
+
+section>ul>li {
+    background-color: #faf8f0;
+    border: 1px solid #e4dfd2;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Gör så att bilden följer de rundade hörnen */
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 0.5em;
+    padding-bottom: 1em;
+}
+
+
+article> :not(img) {
+    margin-inline: 0.8em;
+}
+
+article>p:nth-of-type(1) {
+    font-style: italic;
+    color: #666;
+}
+
+article>p:nth-child(6) {
+    margin-top: auto;
+}
+
+article>img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    /* Låser bildens proportioner automatiskt */
+    object-fit: cover;
+    /* Ser till att bilden fyller ytan snyggt utan att sträckas ut fel */
+    display: block;
+}
+
+/* Platsikon framför fyndplatsen */
+.location {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.location::before {
+    content: "";
+    flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/*Istället för att skapa en svg för varje element, gör detta ett pseudoelement och visar location ikonen i den.*/
+
+.green,
+.yellow,
+.red {
+    font-weight: 600;
+    width: fit-content;
+    font-size: 0.8em;
+    padding: 0.2em 0.6em;
+    border-radius: 5px;
+}
+
+/* Ätbarhet: statusen syns, "?" öppnar hela texten */
+summary {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4em;
+    font-size: 1.2em;
+    list-style: none;
+    cursor: pointer;
+}
+
+summary::after {
+    content: "?";
+    display: grid;
+    place-items: center;
+    min-width: 20px;
+    aspect-ratio: 1/1;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    font-size: 1em;
+}
+
+details[open] summary::after {
+    content: "×";
+}
+
+details>p {
+    font-size: 1.1em;
+    margin: 0.3em 0 0;
+    font-weight: normal;
+}
+
+.green {
+    background-color: #d1edc5;
+    color: #2f5d34;
+}
+
+.yellow {
+    background-color: #f8edb5;
+    color: #665414;
+}
+
+.red {
+    background-color: #ffd3ce;
+    color: #a52222;
+}
+
+.svamp-lista article>img {
+    margin-bottom: 0.3em;
+}
+
+.svamp-lista h3 {
+    font-size: 1.25em;
+}
+
+.svamp-lista p {
+    line-height: 1.4;
+}
+
+/* Varje sida sätter sin egen bakgrundsbild med --hero-bild */
+.hero {
+    padding: 3em 1.5em;
+    color: #ffffff;
+    background-image: linear-gradient(rgb(0 0 0 / 0.6), rgb(0 0 0 / 0.6)), var(--hero-bild);
+    background-position: center bottom;
+}
+
+.hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.2em;
+}
+
+.hero p {
+    max-width: 480px;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+
+@media (max-width: 600px) {
+    main {
+        padding: 3em 2em;
+    }
+
+    .hero {
+        padding: 4em 2em;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav>a:nth-child(1) {
+        text-align: center;
+        flex-basis: 100%;
+        /* loggan tar hela övre raden, övriga länkar hamnar under */
+    }
+}
+
+/* Tre kolumner på större skärmar */
+@media (min-width: 900px) {
+    body {
+        margin: 2em auto;
+    }
+
+    nav {
+        border-radius: 10px 10px 0 0;
+    }
+
+    main {
+        padding: 4em 2em;
+    }
+
+    .hero {
+        padding: 4em;
+    }
+
+    .hero h1 {
+        font-size: 4em;
+    }
+
+    .hero p {
+        font-size: 1.3em;
+    }
+}
