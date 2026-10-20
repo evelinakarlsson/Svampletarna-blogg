@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogg</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/blogg.css">
+    <script src="js/blogg.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html">
+                <img class="logo" src="img/svampletarna-logo.png" alt="Svampletarna logotyp">
+            </a>
+            <a href="index.html">Alla svampar</a>
+            <a href="mina-fynd.html">Mina fynd</a>
+            <a href="om-svampar.html">Om svampar</a>
+            <a href="blogg.html" aria-current="page">Blogg</a>
+            <a href="login.html">Logga in</a>
+        </nav>
+        <div class="hero">
+            <h1>Blogg</h1>
+            <p>Dela dina fynd och upplevelser från svampskogen.</p>
+        </div>
+    </header>
+
+    <main>
+         <!-- Visas när användaren inte är inloggad -->
+        <p id="inloggningsmeddelande">
+            <a href="login.html">Logga in</a> för att skriva inlägg och kommentarer.
+        </p>
+
+        <!-- Visas bara när användaren är inloggad, styrs i TypeScript -->
+        <section id="skriv-inlagg" hidden>
+            <h2>Skriv ett inlägg</h2>
+
+            <form id="bloggformular">
+                <label for="titel">Titel</label>
+                <input type="text" id="titel" name="titel" required>
+
+                <label for="text">Text</label>
+                <textarea id="text" name="text" rows="6" required></textarea>
+
+                <button type="submit">Publicera inlägg</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Blogginlägg</h2>
+
+            <!-- TypeScript skapar inlägg och kommentarer här -->
+            <div id="blogginlagg"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© Svampletarna 2026</p>
+    </footer>
+</body>
+</html>
