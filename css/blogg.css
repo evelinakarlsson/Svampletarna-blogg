@@ -1,0 +1,61 @@
+/* Bakgrundsbild till bloggsidans hero */
+.hero {
+    --hero-bild: url("../img/blogg.jpg");
+}
+
+/* Mellanrum mellan meddelandet och sidans sektioner */
+main > section {
+    margin-top: 2em;
+}
+
+main h2 {
+    margin-bottom: 0.5em;
+}
+/* Gör så formuläret får något lusare färg samt en ram runt om */
+#bloggformular {
+    max-width: 800px;
+    padding: 1.5em;
+    background-color: #faf8f0;
+    border: 1px solid #e4dfd2;
+    border-radius: 8px;
+}
+
+/* Etiketterna placeras ovanför respektive fält */
+#bloggformular label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+/* Fälten fyller formulärets bredd */
+#bloggformular input,
+#bloggformular textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    font: inherit;
+}
+
+#bloggformular textarea {
+    resize: vertical;
+}
+
+/* Publiceringsknappen */
+#bloggformular button {
+    padding: 0.6em 1em;
+    background-color: #2f5d34;
+    border-color: #2f5d34;
+    color: #fff;
+    font: inherit;
+}
+
+/* Mörkare bakgrund när muspekaren är över knappen */
+#bloggformular button:hover {
+    background-color: #244728;
+}
+
+/* Länken får en färg som passar övriga sidan */
+#inloggningsmeddelande a {
+    color: #2f5d34;
+}

@@ -21,7 +21,7 @@ if (inloggadAnvandare !== null) {
 
 // Kopplar funktioner till knapparna, så att något händer när man klickar på dem. När logga in-knappen klickas körs
 // funktionen loggaIn och när logga ut-knappen klickas körs loggaUt
-loginBtn.addEventListener("click", loggaIn);
+loginForm.addEventListener("submit", loggaIn);
 logoutBtn.addEventListener("click", loggaUt);
 
 // Funktion som körs när man klickar på logga in-knappen. Kontrollerar inloggningsuppgifterna när formuläret skickas
