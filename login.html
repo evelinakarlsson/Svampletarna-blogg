@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logga in - Svampletarna</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="login.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html">
+                <img class="logo" src="img/svampletarna-logo.png" alt="Svampletarna logotyp">
+            </a>
+            <a href="login.html">Logga in</a>
+            <a href="index.html">Alla svampar</a>
+            <a href="mina-fynd.html">Mina fynd</a>
+            <a href="om-svampar.html" aria-current="page">Om svampar</a>
+        </nav>
+
+        <h1>Svampletarna</h1>
+        <p>Välkommen till svampletarnas hemsida</p>
+    </header>
+    <main>
+        <div class="login-container">
+
+            <img src="img/svamp.jpg" alt="Bild på svampar i en korg">
+            
+            <div class="login-content">
+                <form id="loginForm">
+                    <h2>Logga in</h2>
+                    <label for="namn">Namn:</label>
+                    <input type="text" id="namn" name="namn">
+
+                    <label for="losenord">Lösenord:</label>
+                    <input type="password" id="losenord" name="losenord">
+
+                    <button type="submit" id="loginBtn">Logga in</button>
+                </form>
+
+                <p id="message"></p>
+                <button type="submit" id="logoutBtn" hidden>Logga ut</button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© Svampletarna 2026</p>
+    </footer>
+    
+</body>
+</html>
