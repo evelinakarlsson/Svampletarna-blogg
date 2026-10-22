@@ -1,6 +1,6 @@
 // Deklarerar konstanter för rätt namn och rätt lösenord vid inloggning
-const rattNamn = "Kalle";
-const rattLosenord = "qwe123";
+const anvandareNamn = ["Kalle", "Lisa", "Olle"];
+const anvandareLosenord = ["qwe123", "abc123", "losen123"];
 
 // Hämtar HTML-elementen
 const namnInput = document.querySelector("#namn");
@@ -29,16 +29,19 @@ function loggaIn(event) {
     // Förhindrar att formuläret laddar om sidan
     event.preventDefault();
 
-    // Först kollar funktionen om det man skrivit i fälten stämmer med både rätt namn och lösenord
-    // om det stämmer visas ett välkomstmeddelande
-    if (namnInput.value === rattNamn && losenordInput.value === rattLosenord) {
-         // Sparar användarnamnet så att det kan läsas på andra sidor
-        localStorage.setItem("inloggadAnvandare", namnInput.value);
+    const namn = namnInput.value;
+    const losenord = losenordInput.value;
 
-        visaInloggad(namnInput.value);
+    // Hittar positionen för det inskrivna användarnamnet
+    const index = anvandareNamn.indexOf(namn);
+
+    // Kontrollerar att namnet finns och att lösenordet på samma position stämmer
+    if (index !== -1 && anvandareLosenord[index] === losenord) {
+        localStorage.setItem("inloggadAnvandare", namn);
+
+        visaInloggad(namn);
         losenordInput.value = "";
     } else {
-        // Om namn eller lösenord är fel så visas ett felmeddelande i röd text
         msgElem.textContent = "Felaktiga inloggningsuppgifter";
         msgElem.style.color = "red";
     }

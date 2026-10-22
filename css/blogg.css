@@ -76,6 +76,10 @@ main h2 {
     border-radius: 8px;
     overflow-wrap: anywhere;
 }
+/* Tar bort globala sidmarginaler inne i blogginläggen */
+#blogginlagg > article > :not(img) {
+    margin-inline: 0;
+}
 
 /* Mellanrum under inläggets rubrik */
 #blogginlagg h3 {
@@ -87,6 +91,12 @@ main h2 {
     margin-bottom: 1em;
     font-size: 0.9em;
     color: #666;
+}
+
+/* Behåller radbrytningarna i inlägg och kommentarer */
+#blogginlagg p {
+    white-space: pre-line;
+    margin-bottom: 0.75em;
 }
 
 /* Skiljer kommentarerna från själva inlägget */
@@ -135,3 +145,18 @@ main h2 {
 #blogginlagg button:hover {
     background-color: #244728;
 }
+
+/* Skiljer varje kommentar från själva blogginlägget */
+.kommentar {
+    margin-bottom: 1em;
+    padding: 1em;
+    background-color: #edf1e8;
+    border-radius: 5px;
+}
+
+/* Användarnamn och datum i kommentaren */
+.kommentar > p:first-child {
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
