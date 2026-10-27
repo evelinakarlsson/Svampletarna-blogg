@@ -6,8 +6,8 @@ function init() {
 // Hämtar informationen från JSON-filerna
 async function fetchData() {
     try {
-        const comparisonResponse = await fetch("json/speciellaEgenskaper.json");
-        const mushroomsResponse = await fetch("json/svampar.json");
+        const comparisonResponse = await fetch("./json/speciellaEgenskaper.json");
+        const mushroomsResponse = await fetch("./json/svampar.json");
 
         // Kontrollerar att båda filerna kunde hämtas
         if (!comparisonResponse.ok || !mushroomsResponse.ok) {

@@ -11,7 +11,7 @@ main > section {
 main h2 {
     margin-bottom: 0.5em;
 }
-/* Gör så formuläret får något lusare färg samt en ram runt om */
+/* Gör så formuläret får något ljusare färg samt en ram runt om */
 #bloggformular {
     max-width: 800px;
     padding: 1.5em;
@@ -27,7 +27,7 @@ main h2 {
 }
 
 /* Fälten fyller formulärets bredd */
-#bloggformular input,
+#bloggformular input, 
 #bloggformular textarea {
     width: 100%;
     padding: 0.5em;
@@ -90,6 +90,7 @@ main h2 {
 #blogginlagg h3 + p {
     margin-bottom: 1em;
     font-size: 0.9em;
+    font-style: normal;
     color: #666;
 }
 
