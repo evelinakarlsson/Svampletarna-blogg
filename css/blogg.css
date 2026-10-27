@@ -170,3 +170,8 @@ main > section,
     max-width: 800px;
     margin-inline: auto;
 }
+
+/* Tar bort extra luft under sista stycket i kommentarsrutan */
+#blogginlagg .kommentar > p:last-child {
+    margin-bottom: 0;
+}
