@@ -70,6 +70,9 @@ main h2 {
 #blogginlagg > article {
     display: block;
     min-width: 0;
+    width: 100%;
+    max-width: 800px;
+    margin-inline: auto;
     padding: 1.5em;
     background-color: #faf8f0;
     border: 1px solid #e4dfd2;
@@ -161,3 +164,9 @@ main h2 {
     font-weight: bold;
 }
 
+/* Centrerar sektionerna och inloggningsmeddelandet med samma bredd som inläggen */
+main > section,
+#inloggningsmeddelande {
+    max-width: 800px;
+    margin-inline: auto;
+}

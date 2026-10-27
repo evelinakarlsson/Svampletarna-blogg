@@ -119,8 +119,8 @@ function publiceraInlagg(event: Event) {
         kommentarer: []
     };
 
-    // Lägger till det nya blogginlägget i arrayen.
-    inlagg.push(nyttInlagg);
+    // Lägger det nya inlägget först i arrayen så att det visas överst på sidan.
+    inlagg.unshift(nyttInlagg);
 
     // Sparar den uppdaterade arrayen i webbläsarens localStorage.
     sparaInlagg();

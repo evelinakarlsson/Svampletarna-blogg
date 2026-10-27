@@ -49,13 +49,15 @@ nav>ul>li {
     list-style: none;
 }
 
-/* Gör länkarna till block och ger dem textstorlek och luft ovanför och under */
+/* Gör länkarna till block och ger dem textstorlek och luft ovanför och under. 
+Gör att alla länkar har samma höjd, så att texten ligger på samma linje */
 nav>ul>li>a {
     display: block;
     color: inherit;
     text-decoration: none;
     font-size: 0.9em;
     padding-block: 1em;
+    border-bottom: 2px solid transparent;
 }
 
 /* Markerar länken till sidan man är på med grön fet text och en linje under */
