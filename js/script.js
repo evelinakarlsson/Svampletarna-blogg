@@ -1,8 +1,10 @@
-const templateEl = document.getElementById("placeholder");
+// Hämtar templaten för ett svampkort och listan som korten ska läggas i
+const templateEl = document.querySelector("template");
 
-const mushroomList = document.querySelector("ul");
+const mushroomList = document.querySelector(".svamp-lista > ul");
 mushroomList.removeChild(templateEl);
 
+// Skapar ett svampkort utifrån en svamp i JSON-filen, lägger till det i listan och returnerar det
 function createMushroomElement({
     svenskt_namn,
     latinskt_namn,
@@ -11,28 +13,35 @@ function createMushroomElement({
     fyndplats,
     beskrivning,
 }) {
-    let mushroomEl = templateEl.cloneNode(true); // skapa en kopia av placeholder elementet som ligger hidden i body
-    let children = mushroomEl.children[0].children;
-    mushroomEl.removeAttribute("id");
-    children[0].src = bild.replace("./", "img/");
-    children[0].alt = svenskt_namn;
-    children[1].textContent = svenskt_namn;
-    children[2].textContent = latinskt_namn;
+    // Skapar en kopia av <li> i templaten
+    const listElement = templateEl.content.firstElementChild.cloneNode(true);
+    const contentElements = listElement.firstElementChild.children;
+
+    // Byter "./" i bildens sökväg till vår bildmapp
+    contentElements[0].src = bild.replace("./", "img/");
+    contentElements[0].alt = svenskt_namn;
+    contentElements[1].textContent = svenskt_namn;
+    contentElements[2].textContent = latinskt_namn;
     // Bara statusen ("Ätlig", "Giftig" ...) syns, hela texten visas när man trycker på texten eller "?"
     const ätbarStatus = ätlig.split(" – ")[0];
-    children[3].querySelector("summary").textContent = ätbarStatus;
-    children[3].querySelector("p").textContent = ätlig;
+    contentElements[3].querySelector("summary").textContent = ätbarStatus;
+    contentElements[3].querySelector("p").textContent = ätlig;
 
     const status = ätbarStatus.toLowerCase();
-    if (status.includes("ätlig")) {
-        children[3].classList.add("green");
+    // "oätlig" kontrolleras först eftersom ordet också innehåller "ätlig"
+    if (status.includes("oätlig")) {
+        contentElements[3].classList.add("yellow");
+    } else if (status.includes("ätlig")) {
+        contentElements[3].classList.add("green");
     } else if (status.includes("giftig")) {
-        children[3].classList.add("red");
+        contentElements[3].classList.add("red");
     }
-    children[4].textContent = beskrivning;
-    children[5].textContent = fyndplats;
-    children[6].dataset.svampId = svenskt_namn;
 
-    mushroomList.appendChild(mushroomEl);
-    return mushroomEl;
+    contentElements[4].textContent = beskrivning;
+    contentElements[5].textContent = fyndplats;
+    // Svenska namnet används som id när svampen sparas i localStorage
+    contentElements[6].dataset.svampId = svenskt_namn;
+
+    mushroomList.appendChild(listElement);
+    return listElement;
 }

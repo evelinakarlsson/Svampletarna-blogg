@@ -1,3 +1,4 @@
+/* Sätter sidans bakgrundsbild i heron, den mörka toningen läggs på i global.css */
 .hero {
     --hero-bild: url("../img/mina-fynd-bakgrund.jpg");
 }
@@ -14,6 +15,7 @@ main>div {
     font-weight: bold;
 }
 
+/* Röda knappar med vit text för att visa att de tar bort fynd */
 main button {
     color: #fff;
     border: none;
@@ -30,22 +32,26 @@ article {
     padding: 0.8em;
 }
 
+/* Lägger all text i mittenkolumnen */
 article> :not(img) {
     margin-inline: 0;
     grid-column: 2;
 }
 
+/* Gör bilden kvadratisk och låter den sträcka sig över textraderna */
 article>img {
     grid-row: 1 / 5;
     aspect-ratio: 1;
     border-radius: 6px;
 }
 
+/* Lägger knappen i högra kolumnen, i höjd med texten */
 article>button {
     grid-column: 3;
     grid-row: 1 / 5;
 }
 
+/* På små skärmar hamnar allt under varandra och bild och knapp blir fullbreda */
 @media (max-width: 600px) {
     article {
         display: flex;
