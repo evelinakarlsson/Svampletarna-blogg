@@ -10,6 +10,8 @@ const bloggformular = document.querySelector("#bloggformular");
 const titelInput = document.querySelector("#titel");
 // Hämtar textområdet där användaren skriver inläggets innehåll.
 const textInput = document.querySelector("#text");
+// Alla blogginlägg, hämtade från localStorage när sidan laddas.
+const inlagg = hamtaInlagg();
 // Hämtar namnet på den inloggade användaren från localStorage. Returnerar användarnamnet som en sträng om någon är inloggad,
 // annars returneras null.
 function hamtaInloggadAnvandare() {
@@ -20,8 +22,8 @@ function hamtaInloggadAnvandare() {
 function hamtaDatum() {
     return new Date().toLocaleDateString("sv-SE");
 }
-// Startfunktion som förbereder sidan när JavaScript-koden körs. Den kontrollera inloggningen, 
-// kopplar formulärets händelse och visa tidigare hämtade blogginlägg.
+// Startfunktion som förbereder sidan när JavaScript-koden körs. Den kontrollerar inloggningen, 
+// kopplar formulärets händelse och visar sparade blogginlägg.
 function init() {
     // Kontrollerar om användaren är inloggad och visar rätt innehåll.
     kontrolleraInloggning();
@@ -146,7 +148,7 @@ function visaKommentarer(inlaggObjekt, artikel) {
         // Skapar ett stycke som visar själva kommentaren.
         const kommentarText = document.createElement("p");
         kommentarText.textContent = kommentar.text;
-        // Lägger till informationen och texten i kommentarsrutan, och placerar sedan kommentarsrutan i i blogginläggets artikel.
+        // Lägger till informationen och texten i kommentarsrutan, och placerar sedan kommentarsrutan i blogginläggets artikel.
         kommentarsruta.append(kommentarInfo, kommentarText);
         artikel.appendChild(kommentarsruta);
     }
@@ -220,6 +222,5 @@ function hamtaInlagg() {
         return [];
     }
 }
-const inlagg = hamtaInlagg();
 // Anropar startfunktionen när skriptet körs. 
 init();

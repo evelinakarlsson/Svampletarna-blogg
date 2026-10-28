@@ -32,6 +32,9 @@ const titelInput = document.querySelector<HTMLInputElement>("#titel");
 // Hämtar textområdet där användaren skriver inläggets innehåll.
 const textInput = document.querySelector<HTMLTextAreaElement>("#text");
 
+// Alla blogginlägg, hämtade från localStorage när sidan laddas.
+const inlagg: Blogginlagg[] = hamtaInlagg();
+
 // Hämtar namnet på den inloggade användaren från localStorage. Returnerar användarnamnet som en sträng om någon är inloggad,
 // annars returneras null.
 function hamtaInloggadAnvandare(): string | null {
@@ -44,8 +47,8 @@ function hamtaDatum(): string {
     return new Date().toLocaleDateString("sv-SE");
 }
 
-// Startfunktion som förbereder sidan när JavaScript-koden körs. Den kontrollera inloggningen, 
-// kopplar formulärets händelse och visa tidigare hämtade blogginlägg.
+// Startfunktion som förbereder sidan när JavaScript-koden körs. Den kontrollerar inloggningen, 
+// kopplar formulärets händelse och visar sparade blogginlägg.
 function init() {
     // Kontrollerar om användaren är inloggad och visar rätt innehåll.
     kontrolleraInloggning();
@@ -203,7 +206,7 @@ function visaKommentarer(inlaggObjekt: Blogginlagg, artikel: HTMLElement) {
         const kommentarText = document.createElement("p");
         kommentarText.textContent = kommentar.text;
 
-        // Lägger till informationen och texten i kommentarsrutan, och placerar sedan kommentarsrutan i i blogginläggets artikel.
+        // Lägger till informationen och texten i kommentarsrutan, och placerar sedan kommentarsrutan i blogginläggets artikel.
         kommentarsruta.append(kommentarInfo, kommentarText);
         artikel.appendChild(kommentarsruta);
     }
@@ -279,7 +282,7 @@ function sparaInlagg() {
 }
 
 // Hämtar tidigare sparade blogginlägg från webbläsarens localStorage.
-function hamtaInlagg() {
+function hamtaInlagg(): Blogginlagg[] {
     const sparadeInlagg = localStorage.getItem("blogginlagg");
 
     // Returnerar en tom array om inga inlägg finns sparade.
@@ -294,8 +297,6 @@ function hamtaInlagg() {
         return [];
     }
 }
-
-const inlagg: Blogginlagg[] = hamtaInlagg();
 
 // Anropar startfunktionen när skriptet körs. 
 init();
