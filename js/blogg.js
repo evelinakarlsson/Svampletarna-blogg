@@ -1,6 +1,6 @@
 "use strict";
-// Hämtar HTML-element som innehåller formuläret för att skriva inlägg
-// <HTMLElement> anger vilken sorts HTML-element vi förväntar oss. querySelector returnerar null om elementet inte finns.
+// Hämtar sektionen med formuläret för att skriva inlägg. Typargumentet (t.ex. <HTMLElement>)
+// anger vilken sorts element vi förväntar oss. querySelector returnerar null om elementet inte finns.
 const skrivInlagg = document.querySelector("#skriv-inlagg");
 // Hämtar elementet som visar ett meddelande om användaren inte är inloggad.
 const meddelande = document.querySelector("#inloggningsmeddelande");
@@ -10,8 +10,6 @@ const bloggformular = document.querySelector("#bloggformular");
 const titelInput = document.querySelector("#titel");
 // Hämtar textområdet där användaren skriver inläggets innehåll.
 const textInput = document.querySelector("#text");
-// Alla blogginlägg, hämtade från localStorage när sidan laddas.
-const inlagg = hamtaInlagg();
 // Hämtar namnet på den inloggade användaren från localStorage. Returnerar användarnamnet som en sträng om någon är inloggad,
 // annars returneras null.
 function hamtaInloggadAnvandare() {
@@ -22,7 +20,9 @@ function hamtaInloggadAnvandare() {
 function hamtaDatum() {
     return new Date().toLocaleDateString("sv-SE");
 }
-// Startfunktion som förbereder sidan när JavaScript-koden körs. Den kontrollerar inloggningen, 
+// Alla blogginlägg, hämtade från localStorage när sidan laddas.
+const inlagg = hamtaInlagg();
+// Startfunktion som förbereder sidan när skriptet laddas. Den kontrollerar inloggningen, 
 // kopplar formulärets händelse och visar sparade blogginlägg.
 function init() {
     // Kontrollerar om användaren är inloggad och visar rätt innehåll.
@@ -59,7 +59,7 @@ function publiceraInlagg(event) {
     if (titelInput === null || textInput === null || inloggadAnvandare === null) {
         return;
     }
-    // Hämtar texten från formuläret och tar bort mellanslag i början och slutet av texten.
+    // Hämtar texten från formuläret och tar bort blanktecken i början och slutet av texten.
     const titel = titelInput.value.trim();
     const text = textInput.value.trim();
     // Kontrollerar att både titeln och texten innehåller något. Om något fält är tomt avbryts publiceringen.
@@ -86,7 +86,7 @@ function publiceraInlagg(event) {
         bloggformular.reset();
     }
 }
-// Visar alla blogginlägg som finns i arrayen på sidan.
+// Visar alla blogginlägg som finns i arrayen på sidan, samt visar ett meddelande när listan är tom.
 function visaInlagg() {
     const behallare = document.querySelector("#blogginlagg");
     // Avslutar funktionen om behållaren inte finns på sidan.
@@ -173,7 +173,7 @@ function skapaKommentarsformular(inlaggObjekt) {
     knapp.textContent = "Kommentera";
     // Lägger till etiketten och knappen i formuläret.
     kommentarForm.append(etikett, knapp);
-    // Kör funktionen när användaren skickar kommentarsformuläret.
+    // Kör koden nedan när användaren skickar kommentarsformuläret.
     kommentarForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const inloggadAnvandare = hamtaInloggadAnvandare();
@@ -212,7 +212,8 @@ function hamtaInlagg() {
     // Returnerar en tom array om inga inlägg finns sparade.
     if (sparadeInlagg === null)
         return [];
-    // Omvandlar den sparade JSON-texten till en array med inlägg.
+    // JSON.parse kastar ett fel om texten inte är giltig JSON. try/catch gör att sidan
+    // då fortsätter fungera med en tom lista istället för att krascha.
     try {
         return JSON.parse(sparadeInlagg);
     }

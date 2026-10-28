@@ -16,8 +16,8 @@ type Blogginlagg = {
     kommentarer: Kommentar[];
 };
 
-// Hämtar HTML-element som innehåller formuläret för att skriva inlägg
-// <HTMLElement> anger vilken sorts HTML-element vi förväntar oss. querySelector returnerar null om elementet inte finns.
+// Hämtar sektionen med formuläret för att skriva inlägg. Typargumentet (t.ex. <HTMLElement>)
+// anger vilken sorts element vi förväntar oss. querySelector returnerar null om elementet inte finns.
 const skrivInlagg = document.querySelector<HTMLElement>("#skriv-inlagg");
 
 // Hämtar elementet som visar ett meddelande om användaren inte är inloggad.
@@ -32,9 +32,6 @@ const titelInput = document.querySelector<HTMLInputElement>("#titel");
 // Hämtar textområdet där användaren skriver inläggets innehåll.
 const textInput = document.querySelector<HTMLTextAreaElement>("#text");
 
-// Alla blogginlägg, hämtade från localStorage när sidan laddas.
-const inlagg: Blogginlagg[] = hamtaInlagg();
-
 // Hämtar namnet på den inloggade användaren från localStorage. Returnerar användarnamnet som en sträng om någon är inloggad,
 // annars returneras null.
 function hamtaInloggadAnvandare(): string | null {
@@ -47,9 +44,12 @@ function hamtaDatum(): string {
     return new Date().toLocaleDateString("sv-SE");
 }
 
-// Startfunktion som förbereder sidan när JavaScript-koden körs. Den kontrollerar inloggningen, 
+// Alla blogginlägg, hämtade från localStorage när sidan laddas.
+const inlagg: Blogginlagg[] = hamtaInlagg();
+
+// Startfunktion som förbereder sidan när skriptet laddas. Den kontrollerar inloggningen, 
 // kopplar formulärets händelse och visar sparade blogginlägg.
-function init() {
+function init(): void {
     // Kontrollerar om användaren är inloggad och visar rätt innehåll.
     kontrolleraInloggning();
 
@@ -64,7 +64,7 @@ function init() {
 }
 
 // Visar eller döljer formuläret beroende på om användaren är inloggad.
-function kontrolleraInloggning() {
+function kontrolleraInloggning(): void {
     // Avbryter om något av HTML-elementen saknas, så att koden inte
     // försöker ändra element som inte finns.
     if (skrivInlagg === null || meddelande === null) {
@@ -81,7 +81,7 @@ function kontrolleraInloggning() {
 }
 
 // Läser formulärets innehåll och skapar ett nytt blogginlägg.
-function publiceraInlagg(event: Event) {
+function publiceraInlagg(event: Event): void {
     // Förhindrar webbläsarens standardbeteende att ladda om sidan när formuläret skickas.
     event.preventDefault();
 
@@ -93,7 +93,7 @@ function publiceraInlagg(event: Event) {
         return;
     }
 
-    // Hämtar texten från formuläret och tar bort mellanslag i början och slutet av texten.
+    // Hämtar texten från formuläret och tar bort blanktecken i början och slutet av texten.
     const titel = titelInput.value.trim();
     const text = textInput.value.trim();
 
@@ -127,8 +127,8 @@ function publiceraInlagg(event: Event) {
     }
 }
 
-// Visar alla blogginlägg som finns i arrayen på sidan.
-function visaInlagg() {
+// Visar alla blogginlägg som finns i arrayen på sidan, samt visar ett meddelande när listan är tom.
+function visaInlagg(): void {
     const behallare = document.querySelector("#blogginlagg");
 
     // Avslutar funktionen om behållaren inte finns på sidan.
@@ -191,7 +191,7 @@ function skapaArtikel(inlaggObjekt: Blogginlagg): HTMLElement {
 }
 
 // Visar alla kommentarer som tillhör ett visst blogginlägg.
-function visaKommentarer(inlaggObjekt: Blogginlagg, artikel: HTMLElement) {
+function visaKommentarer(inlaggObjekt: Blogginlagg, artikel: HTMLElement): void {
     // Går igenom varje kommentar som finns i inläggets kommentarsarray.
     for (const kommentar of inlaggObjekt.kommentarer) {
         // Skapar en div som fungerar som behållare för kommentaren och ger den en CSS-klass så att den kan stylas med CSS.
@@ -238,7 +238,7 @@ function skapaKommentarsformular(inlaggObjekt: Blogginlagg): HTMLFormElement {
     // Lägger till etiketten och knappen i formuläret.
     kommentarForm.append(etikett, knapp);
 
-    // Kör funktionen när användaren skickar kommentarsformuläret.
+    // Kör koden nedan när användaren skickar kommentarsformuläret.
     kommentarForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
@@ -277,7 +277,7 @@ function skapaKommentarsformular(inlaggObjekt: Blogginlagg): HTMLFormElement {
 
 // Sparar alla blogginlägg i webbläsarens localStorage. JSON.stringify omvandlar arrayen från JavaScript till en textsträng,
 // eftersom localStorage bara kan lagra värden som strängar. Informationen finns kvar efter att sidan laddats om.
-function sparaInlagg() {
+function sparaInlagg(): void {
     localStorage.setItem("blogginlagg", JSON.stringify(inlagg));
 }
 
@@ -288,7 +288,8 @@ function hamtaInlagg(): Blogginlagg[] {
     // Returnerar en tom array om inga inlägg finns sparade.
     if (sparadeInlagg === null) return [];
 
-    // Omvandlar den sparade JSON-texten till en array med inlägg.
+    // JSON.parse kastar ett fel om texten inte är giltig JSON. try/catch gör att sidan
+    // då fortsätter fungera med en tom lista istället för att krascha.
     try {
         return JSON.parse(sparadeInlagg);
     } catch (error) {
