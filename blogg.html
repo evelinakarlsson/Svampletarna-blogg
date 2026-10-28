@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogg</title>
+    <!-- Läser in sidornas gemensamma CSS först och sedan bloggens egen CSS -->
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/blogg.css">
+    <!-- Läser in bloggens JavaScript. defer gör att koden körs när HTML:en har lästs in -->
     <script src="./js/blogg.js" defer></script>
 </head>
 
 <body>
     <header>
+        <!-- Huvudmeny: loggan först, sedan sidans länkar -->
         <nav>
             <ul>
                 <li>
@@ -25,7 +28,7 @@
                 <li><a href="./login.html">Logga in</a></li>
             </ul>
         </nav>
-      
+    
         <div class="hero">
             <h1>Blogg</h1>
             <p>Dela dina fynd och upplevelser från svampskogen.</p>
@@ -33,12 +36,12 @@
     </header>
 
     <main>
-         <!-- Visas när användaren inte är inloggad -->
+        <!-- Visas när användaren inte är inloggad. Döljs av scriptet när någon är inloggad  -->
         <p id="inloggningsmeddelande">
             <a href="./login.html">Logga in</a> för att skriva inlägg och kommentarer.
         </p>
 
-        <!-- Visas bara när användaren är inloggad, styrs i TypeScript -->
+        <!-- Formuläret för nya inlägg. hidden döljer sektionen tills scriptet visar den för inloggade användare -->
         <section id="skriv-inlagg" hidden>
             <h2>Skriv ett inlägg</h2>
 
@@ -56,7 +59,8 @@
         <section>
             <h2>Blogginlägg</h2>
 
-            <!-- TypeScript skapar inlägg och kommentarer här -->
+            <!-- JavaScript fyller den tomma div:en med blogginlägg och kommentarer. Varje inlägg skapas 
+            som ett article-element. Inloggade användare får också ett kommentarsformulär -->
             <div id="blogginlagg"></div>
         </section>
     </main>
