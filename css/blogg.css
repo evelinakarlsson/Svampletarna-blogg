@@ -26,8 +26,9 @@ main h2 {
     color: #2f5d34;
 }
 
-/* Gör så formuläret får något ljusare färg, ram, rundade hörn och luft på insidan. */
-#bloggformular {
+/* Ger formuläret och blogginläggen en ljus bakgrund, ram, rundade hörn och luft på insidan. */
+#bloggformular,
+#blogginlagg > article {
     padding: 1.5em;
     background-color: #faf8f0;
     border: 1px solid #e4dfd2;
@@ -43,7 +44,8 @@ main h2 {
 /* Låter fälten fylla formulärets bredd och ger dem luft på insidan, mellanrum under och rundade ramar.
 font: inherit gör att fälten använder samma typsnitt och textstorlek som resten av sidan istället för webbläsarens standard*/
 #bloggformular input,
-#bloggformular textarea {
+#bloggformular textarea,
+#blogginlagg textarea {
     width: 100%;
     padding: 0.5em;
     margin-bottom: 1em;
@@ -53,7 +55,8 @@ font: inherit gör att fälten använder samma typsnitt och textstorlek som rest
 }
 
 /* Gör att användaren kan ändra textfältets höjd men inte dess bredd, så att layouten inte bryts */
-#bloggformular textarea {
+#bloggformular textarea,
+#blogginlagg textarea {
     resize: vertical;
 }
 
@@ -63,15 +66,9 @@ font: inherit gör att fälten använder samma typsnitt och textstorlek som rest
     gap: 1.5em;
 }
 
-/* Varje inlägg visas i en egen ruta med samma utseende som formuläret.
-overflow-wrap låter långa ord och länkar brytas så att de ryms i rutan
-display: block ångrar flex från article-regeln i global.css */
+/* Tillåt radbrytning i långa ord och länkar och ersätt flexlayouten från global.css med blocklayout. */
 #blogginlagg > article {
     display: block;
-    padding: 1.5em;
-    background-color: #faf8f0;
-    border: 1px solid #e4dfd2;
-    border-radius: 8px;
     overflow-wrap: anywhere;
 }
 
@@ -140,18 +137,10 @@ luft på insidan och mellanrum till innehållet under */
     display: block;
 }
 
-/* Kommentarsfältet fyller rutans bredd och får rundade hörn och mellanrum. 
-Användaren kan ändra höjden på kommentarsfältet men inte bredden */
+/* Placera textfältet på en egen rad med lite utrymme ovanför. */
 #blogginlagg textarea {
     display: block;
-    width: 100%;
-    padding: 0.5em;
-    margin-top: 0.5em;
-    margin-bottom: 1em;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    font: inherit;
-    resize: vertical;
+    margin-top: 0.5em;   
 }
 
 /* Ger knapparna luft runt texten, grön bakgrund, vit text och rundade hörn */

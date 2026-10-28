@@ -1,6 +1,4 @@
 "use strict";
-// skapar en tom array som används för att lagra blogginläggen medan sidan är igång
-const inlagg = [];
 // Hämtar HTML-element som innehåller formuläret för att skriva inlägg
 // <HTMLElement> anger vilken sorts HTML-element vi förväntar oss. querySelector returnerar null om elementet inte finns.
 const skrivInlagg = document.querySelector("#skriv-inlagg");
@@ -22,8 +20,8 @@ function hamtaInloggadAnvandare() {
 function hamtaDatum() {
     return new Date().toLocaleDateString("sv-SE");
 }
-// Startfunktion som förbereder sidan när JavaScript-koden körs. Den kontrollerar inloggningen, 
-// kopplar formulärets händelse och hämtar samt visar tidigare sparade blogginlägg.
+// Startfunktion som förbereder sidan när JavaScript-koden körs. Den kontrollera inloggningen, 
+// kopplar formulärets händelse och visa tidigare hämtade blogginlägg.
 function init() {
     // Kontrollerar om användaren är inloggad och visar rätt innehåll.
     kontrolleraInloggning();
@@ -32,35 +30,28 @@ function init() {
     if (bloggformular !== null) {
         bloggformular.addEventListener("submit", publiceraInlagg);
     }
-    // Hämtar tidigare sparade blogginlägg från webbläsaren.
-    hamtaInlagg();
     // Visar de hämtade blogginläggen på sidan.
     visaInlagg();
 }
 // Visar eller döljer formuläret beroende på om användaren är inloggad.
 function kontrolleraInloggning() {
-    // Hämtar den inloggade användarens namn.
-    const inloggadAnvandare = hamtaInloggadAnvandare();
-    // Avbryter funktionen om något av HTML-elementen saknas. Detta förhindrar att koden 
+    // Avbryter om något av HTML-elementen saknas, så att koden inte
     // försöker ändra element som inte finns.
     if (skrivInlagg === null || meddelande === null) {
         return;
     }
-    // Om användaren är inloggad visas formuläret och meddelandet döljs.
-    if (inloggadAnvandare !== null) {
-        skrivInlagg.hidden = false;
-        meddelande.hidden = true;
-    }
-    else {
-        // Om användaren inte är inloggad döljs formuläret och ett meddelande om inloggning visas.
-        skrivInlagg.hidden = true;
-        meddelande.hidden = false;
-    }
+    // Blir true om en inloggad användare finns, annars false.
+    const arInloggad = hamtaInloggadAnvandare() !== null;
+    // Visa skrivInlagg om användaren är inloggad, dölj annars.
+    skrivInlagg.hidden = !arInloggad;
+    // Dölj meddelandet om användaren är inloggad, visa annars.
+    meddelande.hidden = arInloggad;
 }
 // Läser formulärets innehåll och skapar ett nytt blogginlägg.
 function publiceraInlagg(event) {
     // Förhindrar webbläsarens standardbeteende att ladda om sidan när formuläret skickas.
     event.preventDefault();
+    // Hämtar den inloggade användarens namn.
     const inloggadAnvandare = hamtaInloggadAnvandare();
     // Avbryter om något inmatningsfält saknas eller om ingen användare är inloggad.
     if (titelInput === null || textInput === null || inloggadAnvandare === null) {
@@ -103,6 +94,13 @@ function visaInlagg() {
     // Tömmer behållaren innan inläggen visas på nytt. Det förhindrar att samma inlägg läggs till flera gånger
     // när funktionen körs igen.
     behallare.textContent = "";
+    // Kontrollera om listan med inlägg är tom, finns inga inlägg visas ett meddelande om detta.
+    if (inlagg.length === 0) {
+        const tomtMeddelande = document.createElement("p");
+        tomtMeddelande.textContent = "Det finns inga blogginlägg ännu.";
+        behallare.appendChild(tomtMeddelande);
+        return;
+    }
     // Skapar en artikel för varje inlägg och lägger in den i behållaren
     for (const inlaggObjekt of inlagg) {
         behallare.appendChild(skapaArtikel(inlaggObjekt));
@@ -209,22 +207,19 @@ function sparaInlagg() {
 // Hämtar tidigare sparade blogginlägg från webbläsarens localStorage.
 function hamtaInlagg() {
     const sparadeInlagg = localStorage.getItem("blogginlagg");
-    // Om det inte finns några sparade inlägg avslutas funktionen.
-    if (sparadeInlagg === null) {
-        return;
-    }
-    // try/catch fångar felet om den sparade texten inte är giltig JSON, så att hela sidan inte kraschar
+    // Returnerar en tom array om inga inlägg finns sparade.
+    if (sparadeInlagg === null)
+        return [];
+    // Omvandlar den sparade JSON-texten till en array med inlägg.
     try {
-        // Omvandlar JSON-texten till en array med blogginlägg.
-        const hamtadeInlagg = JSON.parse(sparadeInlagg);
-        for (const inlaggObjekt of hamtadeInlagg) {
-            inlagg.push(inlaggObjekt);
-        }
+        return JSON.parse(sparadeInlagg);
     }
     catch (error) {
         // Skriver ett felmeddelande i webbläsarens konsol om inläsningen misslyckas.
         console.error("Det gick inte att läsa sparade blogginlägg:", error);
+        return [];
     }
 }
+const inlagg = hamtaInlagg();
 // Anropar startfunktionen när skriptet körs. 
 init();
