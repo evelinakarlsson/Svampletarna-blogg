@@ -1,33 +1,48 @@
-/* Bakgrundsbild till bloggsidans hero */
+/* Väljer bloggsidans bakgrundsbild. Bilden och den mörka toningen visas genom reglerna i global.css */
 .hero {
     --hero-bild: url("../img/blogg.jpg");
 }
 
-/* Mellanrum mellan meddelandet och sidans sektioner */
+/* Begränsar sektionerna och inloggningsmeddelandet till samma maxbredd som blogginläggen.
+Automatiska sidmarginaler centrerar dem på sidan */
+main > section,
+#inloggningsmeddelande {
+    max-width: 800px;
+    margin-inline: auto;
+}
+
+/* Ger varje sektion i main ett mellanrum ovanför sig */
 main > section {
     margin-top: 2em;
 }
 
+/* Ger mellanrum under huvuddelens h2-rubriker */
 main h2 {
     margin-bottom: 0.5em;
 }
-/* Gör så formuläret får något ljusare färg samt en ram runt om */
+
+/* Länkfärg i samma gröna ton som knapparna */
+#inloggningsmeddelande a {
+    color: #2f5d34;
+}
+
+/* Gör så formuläret får något ljusare färg, ram, rundade hörn och luft på insidan. */
 #bloggformular {
-    max-width: 800px;
     padding: 1.5em;
     background-color: #faf8f0;
     border: 1px solid #e4dfd2;
     border-radius: 8px;
 }
 
-/* Etiketterna placeras ovanför respektive fält */
+/* Etiketter visas som block så att de hamnar ovanför sina fält */
 #bloggformular label {
     display: block;
     margin-bottom: 0.5em;
 }
 
-/* Fälten fyller formulärets bredd */
-#bloggformular input, 
+/* Låter fälten fylla formulärets bredd och ger dem luft på insidan, mellanrum under och rundade ramar.
+font: inherit gör att fälten använder samma typsnitt och textstorlek som resten av sidan istället för webbläsarens standard*/
+#bloggformular input,
 #bloggformular textarea {
     width: 100%;
     padding: 0.5em;
@@ -37,59 +52,41 @@ main h2 {
     font: inherit;
 }
 
+/* Gör att användaren kan ändra textfältets höjd men inte dess bredd, så att layouten inte bryts */
 #bloggformular textarea {
     resize: vertical;
 }
 
-/* Publiceringsknappen */
-#bloggformular button {
-    padding: 0.6em 1em;
-    background-color: #2f5d34;
-    border-color: #2f5d34;
-    color: #fff;
-    font: inherit;
-}
-
-/* Mörkare bakgrund när muspekaren är över knappen */
-#bloggformular button:hover {
-    background-color: #244728;
-}
-
-/* Länken får en färg som passar övriga sidan */
-#inloggningsmeddelande a {
-    color: #2f5d34;
-}
-
-/* Placerar blogginläggen under varandra med mellanrum */
+/* Använder grid för att placera blogginläggen under varandra med mellanrum */
 #blogginlagg {
     display: grid;
     gap: 1.5em;
 }
 
-/* Ger varje blogginlägg en egen ruta */
+/* Varje inlägg visas i en egen ruta med samma utseende som formuläret.
+overflow-wrap låter långa ord och länkar brytas så att de ryms i rutan
+display: block ångrar flex från article-regeln i global.css */
 #blogginlagg > article {
     display: block;
-    min-width: 0;
-    width: 100%;
-    max-width: 800px;
-    margin-inline: auto;
     padding: 1.5em;
     background-color: #faf8f0;
     border: 1px solid #e4dfd2;
     border-radius: 8px;
     overflow-wrap: anywhere;
 }
-/* Tar bort globala sidmarginaler inne i blogginläggen */
+
+/* Nollställer de sidmarginaler som annars gäller globalt (bilder undantas) */
 #blogginlagg > article > :not(img) {
     margin-inline: 0;
 }
 
-/* Mellanrum under inläggets rubrik */
+/* Ger mellanrum under blogginläggets rubrik */
 #blogginlagg h3 {
     margin-bottom: 0.5em;
 }
 
-/* Användarnamn och datum under rubriken */
+/* Formaterar stycket direkt efter rubriken, där användarnamn och datum visas.
+Texten blir mindre, grå och utan kursiv stil, med mellanrum under  */
 #blogginlagg h3 + p {
     margin-bottom: 1em;
     font-size: 0.9em;
@@ -97,13 +94,15 @@ main h2 {
     color: #666;
 }
 
-/* Behåller radbrytningarna i inlägg och kommentarer */
+/* Behåller radbrytningar som användaren skrivit i inlägg och kommentarer 
+samt mellanrum under styckena */
 #blogginlagg p {
     white-space: pre-line;
     margin-bottom: 0.75em;
 }
 
-/* Skiljer kommentarerna från själva inlägget */
+/* Skiljer kommentarsdelen från inläggstexten med en linje och luft ovanför rubriken.
+Ger också mellanrum under rubriken */
 #blogginlagg h4 {
     margin-top: 1.5em;
     margin-bottom: 1em;
@@ -111,20 +110,40 @@ main h2 {
     border-top: 1px solid #e4dfd2;
 }
 
-/* Mellanrum ovanför kommentarsformuläret */
+/* Skiljer varje kommentar från själva blogginlägget. Ger varje kommentar en egen ljusgrön ruta med rundade hörn,
+luft på insidan och mellanrum till innehållet under */
+.kommentar {
+    margin-bottom: 1em;
+    padding: 1em;
+    background-color: #edf1e8;
+    border-radius: 5px;
+}
+
+/* Första raden i kommentaren (användarnamn och datum) visas mindre och i fetstil */
+.kommentar > p:first-child {
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* Tar bort marginalen under kommentarens sista stycke så att det inte blir extra luft längst ner */
+#blogginlagg .kommentar > p:last-child {
+    margin-bottom: 0;
+}
+
+/* Ger mellanrum ovanför formuläret där användaren skriver en kommentar */
 #blogginlagg form {
     margin-top: 1.5em;
 }
 
-/* Placerar etiketten ovanför kommentarsfältet */
+/* Placerar kommentarsfältets etikett på en egen rad */
 #blogginlagg label {
     display: block;
 }
 
-/* Kommentarsfältet fyller rutans bredd */
+/* Kommentarsfältet fyller rutans bredd och får rundade hörn och mellanrum. 
+Användaren kan ändra höjden på kommentarsfältet men inte bredden */
 #blogginlagg textarea {
     display: block;
-    box-sizing: border-box;
     width: 100%;
     padding: 0.5em;
     margin-top: 0.5em;
@@ -135,7 +154,8 @@ main h2 {
     resize: vertical;
 }
 
-/* Knappen för att publicera en kommentar */
+/* Ger knapparna luft runt texten, grön bakgrund, vit text och rundade hörn */
+#bloggformular button,
 #blogginlagg button {
     padding: 0.6em 1em;
     background-color: #2f5d34;
@@ -146,32 +166,8 @@ main h2 {
     cursor: pointer;
 }
 
+/* Gör knapparna mörkare när muspekaren hålls över dem */
+#bloggformular button:hover,
 #blogginlagg button:hover {
     background-color: #244728;
-}
-
-/* Skiljer varje kommentar från själva blogginlägget */
-.kommentar {
-    margin-bottom: 1em;
-    padding: 1em;
-    background-color: #edf1e8;
-    border-radius: 5px;
-}
-
-/* Användarnamn och datum i kommentaren */
-.kommentar > p:first-child {
-    font-size: 0.9em;
-    font-weight: bold;
-}
-
-/* Centrerar sektionerna och inloggningsmeddelandet med samma bredd som inläggen */
-main > section,
-#inloggningsmeddelande {
-    max-width: 800px;
-    margin-inline: auto;
-}
-
-/* Tar bort extra luft under sista stycket i kommentarsrutan */
-#blogginlagg .kommentar > p:last-child {
-    margin-bottom: 0;
 }
